@@ -1,6 +1,10 @@
 import type { Server } from 'http'
-import type { RouteOptions, RawRequestDefaultExpression, RawReplyDefaultExpression } from 'fastify'
-import { type Querystring, type Params, querystring } from './schema.js'
+import type {
+  RawReplyDefaultExpression,
+  RawRequestDefaultExpression,
+  RouteOptions,
+} from 'fastify'
+import { querystring, type Params, type Querystring } from './schema.js'
 
 import * as fs from 'fs'
 import * as path from 'path'
@@ -12,7 +16,7 @@ const unlink = promisify(fs.unlink)
 
 function getFileList(dirPath: string): string[] {
   const entries = fs.readdirSync(dirPath)
-  const fileList = entries.map(entry => path.join(dirPath, entry))
+  const fileList = entries.map((entry) => path.join(dirPath, entry))
   return fileList
 }
 
@@ -29,11 +33,14 @@ async function getDirectorySize(directory: string): Promise<number> {
   return size
 }
 
-async function deleteOldestFiles(directory: string, maxSize: number): Promise<void> {
+async function deleteOldestFiles(
+  directory: string,
+  maxSize: number,
+): Promise<void> {
   const fileNames = await readdir(directory)
 
   const files = await Promise.all(
-    fileNames.map(async fileName => {
+    fileNames.map(async (fileName) => {
       const filePath = path.join(directory, fileName)
       const fileStat = await stat(filePath)
       return { fileName: filePath, mtime: fileStat.mtime }
@@ -52,7 +59,10 @@ async function deleteOldestFiles(directory: string, maxSize: number): Promise<vo
   }
 }
 
-async function maintainDirectorySize(directory: string, maxSizeInMB: number): Promise<void> {
+async function maintainDirectorySize(
+  directory: string,
+  maxSizeInMB: number,
+): Promise<void> {
   const maxSize = maxSizeInMB * 1024 * 1024 // Convert MB to bytes
   const directorySize = await getDirectorySize(directory)
 

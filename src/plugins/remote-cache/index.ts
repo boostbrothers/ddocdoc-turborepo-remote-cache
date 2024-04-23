@@ -7,7 +7,7 @@ import {
   getStatus,
   headArtifact,
   putArtifact,
-  removeArtifact
+  removeArtifact,
 } from './routes/index.js'
 import { createLocation } from './storage/index.js'
 
