@@ -1,9 +1,10 @@
 import { Static, Type } from '@sinclair/typebox'
 
-const querystring = Type.Object(
+export const querystring = Type.Object(
   {
     teamId: Type.Optional(Type.String()),
     slug: Type.Optional(Type.String()),
+    mb: Type.Optional(Type.Number()),
   },
   { additionalProperties: false },
 )
