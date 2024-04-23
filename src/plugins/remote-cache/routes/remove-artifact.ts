@@ -88,7 +88,7 @@ export const removeArtifact: RouteOptions<
     try {
       const teamId = req.query.teamId ?? req.query.slug
       const mb = req.query.mb ?? 1024
-      const directoryPath = `/tmp/${teamId}`
+      const directoryPath = `${process.env.STORAGE_PATH}/${teamId}`
       await maintainDirectorySize(directoryPath, mb)
       reply.code(200).send(getFileList(directoryPath))
     } catch (err) {
